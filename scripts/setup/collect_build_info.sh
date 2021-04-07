@@ -6,6 +6,8 @@ source "${HOST_CFG}"
 source "${ROOT_DIR}/consts.env"
 # shellcheck source=targets/roborio/info.env
 source "${TARGET_CFG}/info.${TARGET_PORT}.env"
+source "${TARGET_CFG}/version.env"
+source "${TARGET_CFG}/version.${TARGET_PORT}.env"
 if "${CANADIAN_STAGE_ONE:-false}"; then
     TARGET_PREFIX="$TARGET_TUPLE-"
 fi
@@ -17,6 +19,7 @@ Host System Info
     Prefix: ${WPIPREFIX}
 Toolchain Info:
     Name: ${TOOLCHAIN_NAME}
+    GCC: ${V_GCC}
     CPU: ${TARGET_CPU}
     Tuple: ${TARGET_TUPLE}
     Prefix: ${TARGET_PREFIX}

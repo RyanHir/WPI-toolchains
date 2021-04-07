@@ -2,8 +2,7 @@ include $(ROOT_DIR)/consts.env
 include $(ROOT_DIR)/targets/${TOOLCHAIN_NAME}/version.env
 include $(ROOT_DIR)/targets/${TOOLCHAIN_NAME}/version.${TARGET_PORT}.env
 
-basic: sysroot-install binutils-install gcc-install cmake-toolchain
-extended:
+basic: sysroot-install llvm-host llvm-target
 
 prefix-install:
 	mkdir -p "/${WPIPREFIX}"
@@ -17,25 +16,13 @@ sysroot: cmake-toolchain
 sysroot-install: prefix-install sysroot
 	cd ${BUILD_DIR}; sudo cp -r ${BUILD_DIR}/sysroot-install/$(TARGET_TUPLE)/ "/$(WPIPREFIX)/"
 
-utils:
-	cd ${BUILD_DIR}; bash ${ROOT_DIR}/makes/src/utils.sh
-
-binutils-install: utils prefix-install
-	cd ${BUILD_DIR}; sudo cp -r ${BUILD_DIR}/binutils-install/${WPIPREFIX}/* "/$(WPIPREFIX)/"
-
-gcc: sysroot binutils-install
-	@# gcc does its own extraction
-	cd ${BUILD_DIR}; ${ROOT_DIR}/makes/src/gcc
-gcc-install: prefix-install gcc
-ifneq (${WPITARGET}, Mac)
-	cd ${BUILD_DIR}; sudo cp -r ${BUILD_DIR}/gcc-install/${WPIPREFIX}/* "/$(WPIPREFIX)/"
-endif
+llvm-host:
+	${MAKE} -C ${ROOT_DIR}/makes/src/host
+llvm-target:
+	${MAKE} -C ${ROOT_DIR}/makes/src/target
 
 cmake-toolchain:
 	cd ${BUILD_DIR}; bash ${ROOT_DIR}/makes/src/cmake-toolchain.sh
-
-libcxx: sysroot-install gcc-install cmake-toolchain
-	false # TODO
 
 tree:
 	cd ${BUILD_DIR}; V_YEAR=$(V_YEAR) V_GCC=$(V_GCC) ${ROOT_DIR}/makes/src/tree
