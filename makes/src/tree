@@ -5,7 +5,7 @@ source "$ROOT_DIR/scripts/repack_tools.sh" || exit
 rm -rf tree-{build,install}
 mkdir tree-{build,install}
 if [ "$WPITARGET" != "sysroot" ]; then
-    for dir in {sysroot,llvm,clang,lld,libcxx}-install; do
+    for dir in {sysroot,llvm,clang,lld,libcxx,conf}-install; do
         echo "$dir/"
         rsync "$dir/" tree-build -a --copy-links
     done
@@ -15,7 +15,7 @@ else
     popd
     rsync "sysroot-install/" tree-build -a --copy-links
 fi
-mv "cmake-toolchain.cmake" "tree-build/${WPIPREFIX}"  
+mv "cmake-toolchain.cmake" "tree-build/${WPIPREFIX}"
 pushd tree-build
 du -hs .
 
@@ -29,9 +29,12 @@ rsync -a "./${WPIPREFIX}/" "${WPI_TREE_OUT}/"
 rm -rf "./${WPIPREFIX}/"
 
 pushd "${WPI_TREE_OUT}"
+pushd bin
+cp clang "${TARGET_TUPLE}-clang"
+cp clang++ "${TARGET_TUPLE}-clang++"
+popd
 rm -rf share/info share/man
 rm -rf lib/xtables
-
 du -hs .
 
 popd # frcYYYY/
