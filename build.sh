@@ -22,6 +22,7 @@ mkdir -p "${DOWNLOAD_DIR}" "${REPACK_DIR}"
 pushd "${DOWNLOAD_DIR}"
 bash "${TARGET_CFG}/download.sh"
 bash "${TARGET_CFG}/repack.sh" "${REPACK_DIR}/"
+bash "${SCRIPT_DIR}/prep_llvm.sh"
 popd
 
 mkdir -p "${BUILD_DIR}"

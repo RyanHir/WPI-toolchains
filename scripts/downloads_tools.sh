@@ -20,6 +20,7 @@ PUB_KEYS=(
     C3126D3B4AE55E93 # binutils
     13FCEF89DD9E3C4F # binutils-alt
     92EDB04BFF325CF3 # gdb
+    A2C794A986419D8A # llvm
 )
 
 import-pgp-keys "${PUB_KEYS[@]}" || return
@@ -73,7 +74,7 @@ function signed() {
     BASE_FILE=${2/*\//}
     basic-download "$2" || exit 1
     basic-download "$2.$1" || return 0 # Signature missing, skip
-    gpg --verify "$BASE_FILE.$1" || exit 1
+    gpg --verify "$BASE_FILE.$1" &> /dev/null || exit 1 
 }
 
 function signed-ni() {
