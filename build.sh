@@ -30,10 +30,11 @@ MAKE="make -C ${ROOT_DIR}/makes/ M=${BUILD_DIR}"
 if [ "$WPITARGET" = "sysroot" ]; then
     ${MAKE} sysroot
 else
-    ${MAKE} basic
+    ${MAKE} build-host
     if [ "$CANADIAN_STAGE_ONE" = "true" ]; then
         exit 0
     fi
+    ${MAKE} build-target
 fi
 
 if is-mac-codesign; then

@@ -2,10 +2,8 @@ include $(ROOT_DIR)/consts.env
 include $(ROOT_DIR)/targets/${TOOLCHAIN_NAME}/version.env
 include $(ROOT_DIR)/targets/${TOOLCHAIN_NAME}/version.${TARGET_PORT}.env
 
-basic: sysroot-install llvm-host llvm-target
-
-prefix-install:
-	mkdir -p "/${WPIPREFIX}"
+build-host: llvm-host
+build-target: sysroot llvm-target
 
 sysroot: cmake-toolchain
 	cd ${BUILD_DIR}; rm -rf sysroot-*
@@ -13,19 +11,13 @@ sysroot: cmake-toolchain
 	cd ${BUILD_DIR}/; mkdir -p sysroot-install/
 	cd ${BUILD_DIR}/; mv sysroot-libc-linux/ sysroot-install/$(TARGET_TUPLE)
 
-sysroot-install: prefix-install sysroot
-	cd ${BUILD_DIR}; sudo cp -r ${BUILD_DIR}/sysroot-install/$(TARGET_TUPLE)/ "/$(WPIPREFIX)/"
-
 llvm-host:
 	${MAKE} -C ${ROOT_DIR}/makes/src/host
 llvm-target:
 	${MAKE} -C ${ROOT_DIR}/makes/src/target
 
-cmake-toolchain:
-	cd ${BUILD_DIR}; bash ${ROOT_DIR}/makes/src/cmake-toolchain.sh
-
 tree:
-	cd ${BUILD_DIR}; V_YEAR=$(V_YEAR) V_GCC=$(V_GCC) ${ROOT_DIR}/makes/src/tree
+	cd ${BUILD_DIR}; bash ${ROOT_DIR}/makes/src/tree
 
 TREEIN_DIRECTORY=${BUILD_DIR}/tree-install/frc$(V_YEAR)/
 TREEOUT_TEMPLATE=$(TARGET_PORT)-${TOOLCHAIN_NAME}-$(V_YEAR)-$(WPITARGET)-Toolchain-$(V_GCC)
@@ -55,6 +47,3 @@ ifeq ($(WPITARGET), Windows)
 else
 	@echo $(TREEOUT_TEMPLATE).tar.gz
 endif
-
-clean:
-	cd ${M}; rm -rf binutils* roborio* sysroot* gcc* tree-install gdb* *-Toolchain-*.tar.gz
