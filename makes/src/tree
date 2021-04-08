@@ -5,9 +5,13 @@ source "$ROOT_DIR/scripts/repack_tools.sh" || exit
 rm -rf tree-{build,install}
 mkdir tree-{build,install}
 if [ "$WPITARGET" != "sysroot" ]; then
-    for dir in {sysroot,llvm,clang,lld,libcxx,conf}-install; do
+    for dir in {sysroot,libcxx,conf}-install; do
         echo "$dir/"
         rsync "$dir/" tree-build -a --copy-links
+    done
+    for dir in {llvm,clang,lld}-install; do
+        echo "${ROOT_DIR}/build/${WPITARGET}/$dir/"
+        rsync "${ROOT_DIR}/build/${WPITARGET}/$dir/" tree-build -a --copy-links
     done
 else
     pushd "sysroot-install"

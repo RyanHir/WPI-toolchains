@@ -2,9 +2,9 @@
 
 set -e
 
-rm -r ${BUILD_DIR}/llvm-install
-mkdir -p ${BUILD_DIR}/llvm-{build,install}
-pushd ${BUILD_DIR}/llvm-build
+rm -rf ${HOST_BUILD_DIR}/llvm-install
+mkdir -p ${HOST_BUILD_DIR}/llvm-{build,install}
+pushd ${HOST_BUILD_DIR}/llvm-build
 
 CMAKE_ARGS=(
     "-DCMAKE_BUILD_TYPE=Release"
@@ -20,6 +20,6 @@ CMAKE_ARGS=(
 cmake "$ROOT_DIR/downloads/llvm-toolchains/llvm/" \
     -G Ninja "${CMAKE_ARGS[@]}"
 ninja all
-DESTDIR="${BUILD_DIR}/llvm-install" ninja install
+DESTDIR="${HOST_BUILD_DIR}/llvm-install" ninja install
 
 popd
