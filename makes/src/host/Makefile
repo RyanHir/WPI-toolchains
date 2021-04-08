@@ -30,8 +30,6 @@ clang-install: clang-build
 	# cd ${HOST_BUILD_DIR}/clang-install; rsync -a ./$(WPIPREFIX)/ "/${WPIPREFIX}/"
 
 unify-install:
-	rm -rf ${HOST_BUILD_DIR}/unify-install
-	mkdir ${HOST_BUILD_DIR}/unify-install
 	cd ${HOST_BUILD_DIR}/llvm-install; rsync -a ./$(WPIPREFIX)/ "/usr/"
 	cd ${HOST_BUILD_DIR}/lld-install; rsync -a ./$(WPIPREFIX)/ "/usr/"
 	cd ${HOST_BUILD_DIR}/clang-install; rsync -a ./$(WPIPREFIX)/ "/usr/"
