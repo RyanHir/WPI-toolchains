@@ -5,7 +5,8 @@ include $(ROOT_DIR)/targets/${TOOLCHAIN_NAME}/version.${TARGET_PORT}.env
 build-host: llvm-host
 build-target: sysroot llvm-target
 
-sysroot: cmake-toolchain
+sysroot:
+	${MAKE} -C ${ROOT_DIR}/makes/src/target cmake-toolchain 
 	cd ${BUILD_DIR}; rm -rf sysroot-*
 	cd ${BUILD_DIR}/; tar xf ${DOWNLOAD_DIR}/sysroot-libc-linux.tar.bz2
 	cd ${BUILD_DIR}/; mkdir -p sysroot-install/

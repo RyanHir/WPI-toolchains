@@ -10,4 +10,4 @@ conf-build:
 	cd ${BUILD_DIR}; bash ${ROOT_DIR}/makes/src/target/conf.sh
 
 cmake-toolchain:
-	cd ${BUILD_DIR}; bash ${ROOT_DIR}/makes/src/cmake-toolchain.sh
+	cd ${BUILD_DIR}; bash ${ROOT_DIR}/makes/src/target/cmake-toolchain.sh

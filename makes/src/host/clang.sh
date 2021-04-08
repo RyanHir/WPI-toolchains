@@ -2,6 +2,7 @@
 
 set -e
 
+rm -r ${BUILD_DIR}/clang-install
 mkdir -p ${BUILD_DIR}/clang-{build,install}
 pushd ${BUILD_DIR}/clang-build
 
@@ -13,6 +14,7 @@ CMAKE_ARGS=(
     "-DLLVM_INSTALL_UTILS=ON"
     "-DLLVM_BUILD_TESTS=OFF"
     "-DLLVM_BUILD_DOCS=OFF"
+    "-DLLVM_TARGETS_TO_BUILD=X86;AArch64;ARM"
     "-DLLVM_MAIN_SRC_DIR=$ROOT_DIR/downloads/llvm-toolchains/llvm/"
 )
 
