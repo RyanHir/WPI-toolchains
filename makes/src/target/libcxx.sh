@@ -14,7 +14,7 @@ SYSROOT_LIB_FLAGS="-B '$SYSROOT/usr/lib/$TARGET_TUPLE/$V_GCC'"
 TARGET_FLAGS="-mcpu=${TARGET_CPU} -mfpu=${TARGET_FPU} -mfloat-abi=${TARGET_FLOAT}"
 CXX_FLAGS="$SYSROOT_FLAGS $TARGET_FLAGS $SYSROOT_LIB_FLAGS"
 LINK_FLAGS="-fuse-ld=lld -L '$SYSROOT/usr/lib/$TARGET_TUPLE/$V_GCC'"
-
+bash
 CMAKE_ARGS=(
     "-DCMAKE_BUILD_TYPE=Release"
     "-DCMAKE_INSTALL_PREFIX=/usr"
@@ -41,10 +41,11 @@ CMAKE_ARGS=(
     "-DLIBCXX_CXX_ABI_INCLUDE_PATHS=$SYSROOT/usr/include/c++/${V_GCC};$SYSROOT/usr/include/c++/${V_GCC}/$TARGET_TUPLE"
 
     # Select Compiler
-    "-DCMAKE_C_COMPILER=clang"
+    "-DCMAKE_C_COMPILER=/usr/bin/clang"
     "-DCMAKE_C_COMPILER_TARGET=$TARGET_TUPLE"
-    "-DCMAKE_CXX_COMPILER=clang++"
+    "-DCMAKE_CXX_COMPILER=/usr/bin/clang++"
     "-DCMAKE_CXX_COMPILER_TARGET=$TARGET_TUPLE"
+    "-DCMAKE_AR=/usr/bin/llvm-ar"
 
     # Compiler Target
     "-DCMAKE_C_FLAGS=$CXX_FLAGS"

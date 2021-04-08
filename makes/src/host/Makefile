@@ -1,5 +1,5 @@
-.PHONY: all llvm lld clang
-all: llvm lld clang
+.PHONY: all llvm lld clang unify-install
+all: llvm lld clang unify-install
 
 llvm: llvm-build llvm-install
 lld: lld-build lld-install
@@ -28,3 +28,10 @@ clang-build: prep_dir
 clang-install: clang-build
 	# cd ${HOST_BUILD_DIR}/clang-install; rsync -a ./$(WPIPREFIX)/ "/usr/"
 	# cd ${HOST_BUILD_DIR}/clang-install; rsync -a ./$(WPIPREFIX)/ "/${WPIPREFIX}/"
+
+unify-install:
+	rm -rf ${HOST_BUILD_DIR}/unify-install
+	mkdir ${HOST_BUILD_DIR}/unify-install
+	cd ${HOST_BUILD_DIR}/llvm-install; rsync -a ./$(WPIPREFIX)/ "/usr/"
+	cd ${HOST_BUILD_DIR}/lld-install; rsync -a ./$(WPIPREFIX)/ "/usr/"
+	cd ${HOST_BUILD_DIR}/clang-install; rsync -a ./$(WPIPREFIX)/ "/usr/"
