@@ -33,3 +33,4 @@ BUILD_DIR="${ROOT_DIR}/build/${TOOLCHAIN_NAME}-${TARGET_PORT}/${WPITARGET}/"
 
 # PATH="$PATH:$BUILD_DIR/binutils-install/${WPIPREFIX}/bin/"
 PATH="$PATH:$BUILD_DIR/gcc-install/${WPIPREFIX}/bin/"
+PATH="$PATH:$DOWNLOAD_DIR/../llvm-mingw/bin/"

@@ -9,11 +9,11 @@ ROOT_DIR="${PWD}"
 source "$ROOT_DIR/scripts/setup.sh"
 set +a
 
-if [ "${WPITARGET}" = "Windows" ]; then
-    # Recursivly build to setup host to help the canadian build
-    CANADIAN_STAGE_ONE=true bash \
-        "$0" "hosts/linux_x86_64.env" "$2" "$3" || exit
-fi
+# if [ "${WPITARGET}" = "Windows" ]; then
+#     # Recursivly build to setup host to help the canadian build
+#     CANADIAN_STAGE_ONE=true bash \
+#         "$0" "hosts/linux_x86_64.env" "$2" "$3" || exit
+# fi
 
 set -e
 
@@ -31,9 +31,9 @@ if [ "$WPITARGET" = "sysroot" ]; then
     ${MAKE} sysroot
 else
     ${MAKE} build-host
-    if [ "$CANADIAN_STAGE_ONE" = "true" ]; then
-        exit 0
-    fi
+    # if [ "$CANADIAN_STAGE_ONE" = "true" ]; then
+    #     exit 0
+    # fi
     ${MAKE} build-target
 fi
 

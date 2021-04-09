@@ -9,10 +9,8 @@ if [ "$WPITARGET" != "sysroot" ]; then
         echo "$dir/"
         rsync "$dir/" tree-build -a --copy-links
     done
-    for dir in {llvm,clang,lld}-install; do
-        echo "${ROOT_DIR}/build/${WPITARGET}/$dir/"
-        rsync "${ROOT_DIR}/build/${WPITARGET}/$dir/" tree-build -a --copy-links
-    done
+    echo "${ROOT_DIR}/build/${WPITARGET}/llvm-install/"
+    rsync "${ROOT_DIR}/build/${WPITARGET}/llvm-install/" tree-build -a --copy-links
 else
     pushd "sysroot-install"
     # fix-links

@@ -9,10 +9,10 @@ RUN apt-get update && apt-get install -y \
     bison \
     build-essential \
     cmake \
+    clang \
     file \
     flex \
     gawk \
-    mingw-w64 \
     m4 \
     ninja-build \
     python3 \
