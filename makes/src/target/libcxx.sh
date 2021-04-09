@@ -39,13 +39,6 @@ CMAKE_ARGS=(
     "-DLIBCXX_CXX_ABI_LIBRARY_PATH=$SYSROOT/usr/lib/libstdc++.so"
     "-DLIBCXX_CXX_ABI_INCLUDE_PATHS=$SYSROOT/usr/include/c++/${V_GCC};$SYSROOT/usr/include/c++/${V_GCC}/$TARGET_TUPLE"
 
-    # Select Compiler
-    "-DCMAKE_C_COMPILER=$ROOT_DIR/downloads/llvm-mingw/bin/clang"
-    "-DCMAKE_C_COMPILER_TARGET=$TARGET_TUPLE"
-    "-DCMAKE_CXX_COMPILER=$ROOT_DIR/downloads/llvm-mingw/bin/clang++"
-    "-DCMAKE_CXX_COMPILER_TARGET=$TARGET_TUPLE"
-    "-DCMAKE_AR=$ROOT_DIR/downloads/llvm-mingw/bin/llvm-ar"
-
     # Compiler Target
     "-DCMAKE_C_FLAGS=$CXX_FLAGS"
     "-DCMAKE_CXX_FLAGS=$CXX_FLAGS"
@@ -54,6 +47,26 @@ CMAKE_ARGS=(
     "-DCMAKE_SYSROOT=$SYSROOT"
     "-DCMAKE_LIBRARY_PATH=$SYSROOT/usr/lib;$SYSROOT/usr/lib/$TARGET_TUPLE/$V_GCC"
 )
+
+# Select Compiler
+if [ "$WPITARGET" = "Windows" ]; then
+    # TODO: Test with Ubuntu 20.04 clang
+    CMAKE_ARGS+=(
+        "-DCMAKE_C_COMPILER=$ROOT_DIR/downloads/llvm-mingw/bin/clang"
+        "-DCMAKE_C_COMPILER_TARGET=$TARGET_TUPLE"
+        "-DCMAKE_CXX_COMPILER=$ROOT_DIR/downloads/llvm-mingw/bin/clang++"
+        "-DCMAKE_CXX_COMPILER_TARGET=$TARGET_TUPLE"
+        "-DCMAKE_AR=$ROOT_DIR/downloads/llvm-mingw/bin/llvm-ar"
+    )
+else
+    CMAKE_ARGS+=(
+        "-DCMAKE_C_COMPILER=$ROOT_DIR/build/$WPITARGET/llvm-install/$WPIPREFIX/bin/clang"
+        "-DCMAKE_C_COMPILER_TARGET=$TARGET_TUPLE"
+        "-DCMAKE_CXX_COMPILER=$ROOT_DIR/build/$WPITARGET/llvm-install/$WPIPREFIX/bin/clang++"
+        "-DCMAKE_CXX_COMPILER_TARGET=$TARGET_TUPLE"
+        "-DCMAKE_AR=$ROOT_DIR/build/$WPITARGET/llvm-install/$WPIPREFIX/bin/llvm-ar"
+    )
+fi
 
 cmake "$ROOT_DIR/downloads/llvm-toolchains/libcxx/" \
     -G Ninja "${CMAKE_ARGS[@]}"

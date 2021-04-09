@@ -16,7 +16,6 @@ RUN apt-get update && apt-get install -y \
     m4 \
     ninja-build \
     python3 \
-    python3-distutils \
     rsync \
     sudo \
     texinfo \
