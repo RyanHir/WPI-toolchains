@@ -5,13 +5,13 @@
  * Target: The system in which the compiled code runs on 
 
 ## Supported Hosts
-| Architecture | OS | Requirments |
+| Architecture | OS | Minimum Release |
 | - | - | - |
-| x86_64 | Linux | glibc 2.23 >= |
-| x86_64 | MacOS | 10.10 >= |
-| x86_64 | Windows | 7 >= |
-| i686 | Windows | 7 >= |
-| arm64 | Windows | 10 >= |
+| x86_64 | Linux | glibc 2.23 and linux 4.4 |
+| x86_64 | MacOS | macOS 10.10 |
+| x86_64 | Windows | Win7 |
+| i686 | Windows | Win7 |
+| arm64 | Windows | Win10 |
 | Sysroot Only | - | - |
 
 ### Using Compatability Layers
@@ -19,12 +19,12 @@
 
 ## Supported Targets
 
-| Architecture | System | Tuple | Requirments |
+| Architecture | System | Tuple | Minimum Release |
 | - | - | - | - |
-| ARMv7 (softfp) | N.I. Linux (RoboRIO) | arm-nilrt-linux-gnueabi | Latest RIO Image |
-| ARMv6z | Raspberry Pi zero or one | arm-rasbi-linux-gnueabihf | glibc 2.24 >= and linux 4.9 >= |
-| ARMv7 | Generic | arm-linux-gnueabihf | glibc 2.23 >= and linux 4.4 >= |
-| ARMv8 (64bit) | Generic | aarch64-linux-gnu | glibc 2.23 >= and linux 4.4 >= |
+| ARMv7 (softfp) | N.I. Linux (RoboRIO) | arm-nilrt-linux-gnueabi | Latest Image |
+| ARMv6z | Raspberry Pi zero/one | arm-rasbi-linux-gnueabihf | glibc 2.24 and linux 4.9 |
+| ARMv7 | Generic | arm-linux-gnueabihf | glibc 2.23 and linux 4.4 |
+| ARMv8 (64bit) | Generic | aarch64-linux-gnu | glibc 2.23 and linux 4.4 |
 -----
 
 ## Resources
