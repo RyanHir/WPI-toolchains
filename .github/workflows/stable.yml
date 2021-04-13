@@ -43,6 +43,12 @@ jobs:
               docker-img: 20.04,
             },
             {
+              os-cfg: windows_arm64,
+              runner: ubuntu-latest,
+              docker: true,
+              docker-img: 20.04,
+            },
+            {
               os-cfg: macos_x86_64,
               runner: macos-latest,
               docker: false,

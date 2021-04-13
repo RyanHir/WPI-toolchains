@@ -9,13 +9,12 @@
 | - | - | - |
 | x86_64 | Linux | glibc 2.23 >= |
 | x86_64 | MacOS | 10.10 >= |
-| x86_64 | Win64 | 7 >= |
-| i686 | Win32 | 7 >= |
+| x86_64 | Windows | 7 >= |
+| i686 | Windows | 7 >= |
+| arm64 | Windows | 10 >= |
 | Sysroot Only | - | - |
 
 ### Using Compatability Layers
-  * Use i686 Windows builds for Windows 10 on ARM
-  * Use x86_64 Windows builds for Windows 10 on ARM (Insiders Channel)
   * Use x86_64 macOS builds for macOS on Apple Silicon
 
 ## Supported Targets
