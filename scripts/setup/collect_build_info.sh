@@ -1,16 +1,9 @@
 #! /usr/bin/env bash
 
-# shellcheck source=hosts/linux_x86_64.env
 source "${HOST_CFG}"
-# shellcheck source=consts.env
 source "${ROOT_DIR}/consts.env"
-# shellcheck source=targets/roborio/info.env
 source "${TARGET_CFG}/info.${TARGET_PORT}.env"
 source "${TARGET_CFG}/version.env"
-source "${TARGET_CFG}/version.${TARGET_PORT}.env"
-if "${CANADIAN_STAGE_ONE:-false}"; then
-    TARGET_PREFIX="$TARGET_TUPLE-"
-fi
 
 cat <<EOF
 Host System Info
@@ -19,10 +12,9 @@ Host System Info
     Prefix: ${WPIPREFIX}
 Toolchain Info:
     Name: ${TOOLCHAIN_NAME}
-    GCC: ${V_GCC}
-    CPU: ${TARGET_CPU}
-    Tuple: ${TARGET_TUPLE}
-    Prefix: ${TARGET_PREFIX}
+    libgcc: ${V_GCC}
+    Vendor Tuple: ${TARGET_TUPLE}
+    Prefered Tuple: ${TARGET_TUPLE_RENAME}
 EOF
 
 DOWNLOAD_DIR="${ROOT_DIR}/downloads/${TOOLCHAIN_NAME}-${TARGET_PORT}/"

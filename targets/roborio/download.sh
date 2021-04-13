@@ -1,10 +1,7 @@
 #! /usr/bin/env bash
 
 source "$(dirname "$0")/version.env" || exit
-source "$(dirname "$0")/version.${TARGET_PORT}.env" || exit
 source "${SCRIPT_DIR}/downloads_tools.sh" || exit
-
-signed sig https://ftp.gnu.org/gnu/gcc/gcc-${V_GCC}/gcc-${V_GCC}.tar.gz
 
 # signed asc https://download.ni.com/ni-linux-rt/feeds/2019/arm/cortexa9-vfpv3/Packages
 # Cannot find public key to verify Packages.asc in directory, use https instead

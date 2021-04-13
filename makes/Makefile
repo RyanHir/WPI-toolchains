@@ -1,6 +1,5 @@
 include $(ROOT_DIR)/consts.env
 include $(ROOT_DIR)/targets/${TOOLCHAIN_NAME}/version.env
-include $(ROOT_DIR)/targets/${TOOLCHAIN_NAME}/version.${TARGET_PORT}.env
 
 build-host: llvm-host
 build-target: sysroot llvm-target

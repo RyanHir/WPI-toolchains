@@ -1,0 +1,4 @@
+generic=armhf
+generic=arm64
+raspi32=armhf
+roborio=armel

@@ -19,12 +19,12 @@
 
 ## Supported Targets
 
-| Architecture | Operating System | Tuple |
-| - | - | - |
-| ARMv7 (softfp) | N.I. Linux (RoboRIO) | arm-nilrt-linux-gnueabi |
-| ARMv6z | RPiOS 32bit | arm-rasbi-linux-gnueabihf |
-| ARMv7 | Debian/Ubuntu | arm-linux-gnueabihf |
-| ARMv8 (64bit) | Debian/Ubuntu/RPiOS 64bit | aarch64-linux-gnu |
+| Architecture | System | Tuple | Requirments |
+| - | - | - | - |
+| ARMv7 (softfp) | N.I. Linux (RoboRIO) | arm-nilrt-linux-gnueabi | Latest RIO Image |
+| ARMv6z | Raspberry Pi zero or one | arm-rasbi-linux-gnueabihf | glibc 2.24 >= and linux 4.9 >= |
+| ARMv7 | Generic | arm-linux-gnueabihf | glibc 2.23 >= and linux 4.4 >= |
+| ARMv8 (64bit) | Generic | aarch64-linux-gnu | glibc 2.23 >= and linux 4.4 >= |
 -----
 
 ## Resources
