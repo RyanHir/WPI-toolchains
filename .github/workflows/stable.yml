@@ -13,14 +13,9 @@ jobs:
         target:
           [
             { os: roborio, port: armel },
-            { os: bionic, port: armhf },
-            { os: bionic, port: arm64 },
-            { os: focal, port: armhf },
-            { os: focal, port: arm64 },
-            { os: buster, port: armhf },
-            { os: buster, port: arm64 },
-            { os: bullseye, port: armhf },
-            { os: bullseye, port: arm64 },
+            { os: raspi32, port: armhf },
+            { os: generic, port: armhf },
+            { os: generic, port: arm64 },
           ]
         host:
           [
@@ -95,14 +90,9 @@ jobs:
         target:
           [
             { os: roborio, port: armel },
-            { os: bionic, port: armhf },
-            { os: bionic, port: arm64 },
-            { os: focal, port: armhf },
-            { os: focal, port: arm64 },
-            { os: buster, port: armhf },
-            { os: buster, port: arm64 },
-            { os: bullseye, port: armhf },
-            { os: bullseye, port: arm64 },
+            { os: raspi32, port: armhf },
+            { os: generic, port: armhf },
+            { os: generic, port: arm64 },
           ]
     runs-on: ubuntu-latest
     steps:
