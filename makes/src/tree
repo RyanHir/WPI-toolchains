@@ -5,12 +5,12 @@ source "$ROOT_DIR/scripts/repack_tools.sh" || exit
 rm -rf tree-{build,install}
 mkdir tree-{build,install}
 if [ "$WPITARGET" != "sysroot" ]; then
-    for dir in {sysroot,libcxx,conf}-install; do
+    for dir in {sysroot,libcxx}-install; do
         echo "$dir/"
         rsync "$dir/" tree-build -a --copy-links
     done
-    echo "${ROOT_DIR}/build/${WPITARGET}/llvm-install/"
     rsync "${ROOT_DIR}/build/${WPITARGET}/llvm-install/" tree-build -a --copy-links
+    rsync "${ROOT_DIR}/build/${WPITARGET}/wrapper-install/" tree-build -a --copy-links
 else
     pushd "sysroot-install"
     # fix-links
@@ -30,10 +30,41 @@ rsync -a "./${TARGET_TUPLE}/" "${WPI_TREE_OUT}/${TARGET_TUPLE}"
 rsync -a "./${WPIPREFIX}/" "${WPI_TREE_OUT}/"
 rm -rf "./${WPIPREFIX}/"
 
+ALIASES_TO_CLANG=(
+    as
+    cc
+    c++
+    gcc
+    g++
+    clang
+    clang++
+)
+ALIASES_TO_LLVM=(
+    addr2line
+    ar
+    nm
+    objcopy
+    objdump
+    ranlib
+    strings
+    strip
+)
+if [ "$WPITARGET" = "Windows" ]; then
+    BIN_EXT=".exe"
+fi
 pushd "${WPI_TREE_OUT}"
 pushd bin
-cp clang "${TARGET_TUPLE}-clang"
-cp clang++ "${TARGET_TUPLE}-clang++"
+mv wrapper$BIN_EXT .wrapper$BIN_EXT
+for target in "${ALIASES_TO_CLANG[@]}"; do
+    if [ "$target" != clang ]; then
+        ln -s clang$BIN_EXT "${target}${BIN_EXT}"
+    fi
+    ln -s .wrapper$BIN_EXT "$TARGET_TUPLE-${target}${BIN_EXT}"
+done
+for target in "${ALIASES_TO_LLVM[@]}"; do
+    ln -s "llvm-${target}${BIN_EXT}" "$TARGET_TUPLE-${target}${BIN_EXT}"
+done
+cp "$ROOT_DIR/downloads/llvm-mingw/$WPIHOSTTARGET/bin/"lib*.dll .
 popd
 rm -rf share/info share/man
 rm -rf lib/xtables

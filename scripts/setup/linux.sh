@@ -11,9 +11,10 @@ is-linux || return 0
 CFLAGS=""
 CXXFLAGS=""
 if [ "$WPITARGET" = "Windows" ]; then
-    CFLAGS="$CFLAGS -Wno-unused-command-line-argument -static-libgcc -static-libstdc++"
-    CXXFLAGS="$CXXFLAGS -Wno-unused-command-line-argument -static-libgcc -static-libstdc++"
-    LDFLAGS="$LDFLAGS -Wno-unused-command-line-argument -static-libgcc -static-libstdc++"
+    CFLAGS="$CFLAGS -Wno-unused-command-line-argument"
+    CXXFLAGS="$CXXFLAGS -Wno-unused-command-line-argument"
+    LDFLAGS="$LDFLAGS -Wno-unused-command-line-argument"
+    
 else
     CFLAGS="$CFLAGS -fPIC"
     CXXFLAGS="$CXXFLAGS -fPIC"
