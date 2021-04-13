@@ -59,12 +59,13 @@ if [ "$WPITARGET" = "Windows" ]; then
         "-DCMAKE_AR=$ROOT_DIR/downloads/llvm-mingw/bin/llvm-ar"
     )
 else
+    RECENT_CLANG_BUILD_DIR="$ROOT_DIR/build/${WPITARGET}_${WPIHOSTTARGET}/llvm-install/$WPIPREFIX/bin"
     CMAKE_ARGS+=(
-        "-DCMAKE_C_COMPILER=$ROOT_DIR/build/$WPITARGET/llvm-install/$WPIPREFIX/bin/clang"
+        "-DCMAKE_C_COMPILER=${RECENT_CLANG_BUILD_DIR}/clang"
         "-DCMAKE_C_COMPILER_TARGET=$TARGET_TUPLE"
-        "-DCMAKE_CXX_COMPILER=$ROOT_DIR/build/$WPITARGET/llvm-install/$WPIPREFIX/bin/clang++"
+        "-DCMAKE_CXX_COMPILER=${RECENT_CLANG_BUILD_DIR}/clang++"
         "-DCMAKE_CXX_COMPILER_TARGET=$TARGET_TUPLE"
-        "-DCMAKE_AR=$ROOT_DIR/build/$WPITARGET/llvm-install/$WPIPREFIX/bin/llvm-ar"
+        "-DCMAKE_AR=${RECENT_CLANG_BUILD_DIR}/llvm-ar"
     )
 fi
 

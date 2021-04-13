@@ -1,7 +1,7 @@
 .PHONY: all llvm wrapper unify-install
 all: llvm wrapper unify-install
 
-HOST_BUILD_DIR=${ROOT_DIR}/build/${WPITARGET}/
+HOST_BUILD_DIR=${ROOT_DIR}/build/${WPITARGET}_${WPIHOSTTARGET}/
 export
 
 prep_dir:
