@@ -7,7 +7,7 @@ mkdir -p ${HOST_BUILD_DIR}/llvm-{build,install}
 pushd ${HOST_BUILD_DIR}/llvm-build
 
 CMAKE_ARGS=(
-    "-DCMAKE_BUILD_TYPE=Release"
+    "-DCMAKE_BUILD_TYPE=MinSizeRel"
     "-DCMAKE_INSTALL_PREFIX=${WPIPREFIX}"
     "-DLLVM_INSTALL_UTILS=ON"
     "-DLLVM_BUILD_TESTS=OFF"

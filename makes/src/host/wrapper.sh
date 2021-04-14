@@ -6,7 +6,7 @@ rm -rf "${HOST_BUILD_DIR}/wrapper-"{build,install}
 mkdir -p "${HOST_BUILD_DIR}/wrapper-build/"
 
 CMAKE_ARGS=(
-    "-DCMAKE_BUILD_TYPE=Debug"
+    "-DCMAKE_BUILD_TYPE=MinSizeRel"
     "-DCMAKE_INSTALL_PREFIX=${WPIPREFIX}"
     "-DLLVM_GCC_VERSION=$V_GCC"
 )
