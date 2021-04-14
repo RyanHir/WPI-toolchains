@@ -22,4 +22,4 @@ export GDB_CFLAGS GDB_CXXFLAGS
 # Make-server processes
 JOBS="$(nproc --ignore=1)"
 is-actions && JOBS="6" # Use the same across all actions
-export JOBS
+is-actions && NINJA_ARGS="-j$JOBS"

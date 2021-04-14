@@ -45,7 +45,7 @@ fi
 
 cmake "$ROOT_DIR/downloads/llvm-toolchains/llvm/" \
     -G Ninja "${CMAKE_ARGS[@]}"
-ninja all
+ninja $NINJA_ARGS all
 DESTDIR="${HOST_BUILD_DIR}/llvm-install" ninja install
 # exit 1
 popd

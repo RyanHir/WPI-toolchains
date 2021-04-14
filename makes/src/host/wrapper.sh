@@ -24,6 +24,6 @@ fi
 pushd "${HOST_BUILD_DIR}/wrapper-build/"
 cmake "${ROOT_DIR}/res/wrapper/" \
     -GNinja "${CMAKE_ARGS[@]}"
-ninja
+ninja $NINJA_ARGS
 DESTDIR="${HOST_BUILD_DIR}/wrapper-install/" ninja install
 popd

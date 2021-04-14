@@ -74,7 +74,7 @@ fi
 
 cmake "$ROOT_DIR/downloads/llvm-toolchains/libcxx/" \
     -G Ninja "${CMAKE_ARGS[@]}"
-ninja
+ninja $NINJA_ARGS
 # DESTDIR="${BUILD_DIR}/libcxx-install" ninja install-cxxabi
 DESTDIR="${BUILD_DIR}/libcxx-install/$TARGET_TUPLE" ninja install
 
