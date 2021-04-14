@@ -10,8 +10,6 @@ package-debian g/gcc-6/libatomic1-dbg_${Va_LIBGCC}_${TARGET_PORT}.deb
 package-debian g/gcc-6/libstdc++6_${Va_LIBGCC}_${TARGET_PORT}.deb
 package-debian g/gcc-6/libstdc++-6-dev_${Va_LIBGCC}_${TARGET_PORT}.deb
 package-debian g/gcc-6/libasan3_${Va_LIBGCC}_${TARGET_PORT}.deb
-package-debian g/gcc-6/liblsan0_${Va_LIBGCC}_${TARGET_PORT}.deb
-package-debian g/gcc-6/libtsan0_${Va_LIBGCC}_${TARGET_PORT}.deb
 package-debian g/gcc-6/libgomp1_${Va_LIBGCC}_${TARGET_PORT}.deb
 package-debian g/gcc-6/libubsan0_${Va_LIBGCC}_${TARGET_PORT}.deb
 package-debian g/glibc/libc6_${Va_LIBC}_${TARGET_PORT}.deb
