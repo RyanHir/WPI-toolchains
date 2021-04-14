@@ -42,9 +42,16 @@ std::string getCXXIncludeDir(const std::string &tuple)
     return path;
 }
 
-std::string getLIBGCCDir(const std::string &tuple)
+std::string getLIBGCCDir_typeA(const std::string &tuple)
 {
     std::string path = getSysrootDir(tuple);
     path += "usr" DIR_SEPERATOR "lib" DIR_SEPERATOR + tuple;
+    return path + DIR_SEPERATOR LLVM_GCC_VERSION DIR_SEPERATOR;
+}
+
+std::string getLIBGCCDir_typeB(const std::string &tuple)
+{
+    std::string path = getSysrootDir(tuple);
+    path += "usr" DIR_SEPERATOR "lib" DIR_SEPERATOR "gcc" DIR_SEPERATOR + tuple;
     return path + DIR_SEPERATOR LLVM_GCC_VERSION DIR_SEPERATOR;
 }

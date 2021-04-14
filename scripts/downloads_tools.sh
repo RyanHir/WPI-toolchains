@@ -39,7 +39,8 @@ function package-debian() {
     REPOS=(
         "http://ports.ubuntu.com/pool/main/"
         "http://ports.ubuntu.com/pool/universe/"
-        "http://ftp.debian.org/debian/pool/main/"
+        "http://archive.ubuntu.com/pool/main/"
+        "http://archive.ubuntu.com/pool/universe/"
         "http://archive.raspbian.org/raspbian/pool/main/"
     )
     SUB_URL="$1"
@@ -56,7 +57,7 @@ function package-debian() {
         echo "[INFO] '$PACKAGE' is not in $repo"
     done
     echo "[ERR] Cannot find '${FILE}' in any repos"
-    return 1
+    exit 1
 }
 
 function package-confirm() {
