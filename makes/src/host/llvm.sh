@@ -37,6 +37,12 @@ if [ "$WPITARGET" = "Windows" ]; then
         "-DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=ONLY"
     )
 else
+    if [ "$WPITARGET" = "Mac" ]; then
+        CMAKE_ARGS+=(
+            "-DCMAKE_OSX_ARCHITECTURES=${WPI_HOST_SDK_TARGET}"
+            "-DCMAKE_OSX_DEPLOYMENT_TARGET=${WPI_HOST_SDK_MIN}"
+        )
+    fi
     CMAKE_ARGS+=(
         "-DLLVM_BUILD_LLVM_DYLIB=ON"
         "-DLLVM_LINK_LLVM_DYLIB=ON"

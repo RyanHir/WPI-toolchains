@@ -12,12 +12,16 @@ CMAKE_ARGS=(
 )
 
 if [ "$WPITARGET" = "Windows" ]; then
-    EXE_SUFFIX=".exe"
     CMAKE_ARGS+=(
         "-DCMAKE_SYSTEM_NAME=Windows"
         "-DCMAKE_CROSSCOMPILING=TRUE"
         "-DCMAKE_C_COMPILER=$WPIHOSTTARGET-clang"
         "-DCMAKE_CXX_COMPILER=$WPIHOSTTARGET-clang++"
+    )
+elif [ "$WPITARGET" = "Mac" ]; then
+    CMAKE_ARGS+=(
+        "-DCMAKE_OSX_ARCHITECTURES=${WPI_HOST_SDK_TARGET}"
+        "-DCMAKE_OSX_DEPLOYMENT_TARGET=${WPI_HOST_SDK_MIN}"
     )
 fi
 

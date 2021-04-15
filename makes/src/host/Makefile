@@ -12,8 +12,8 @@ llvm: prep_dir
 wrapper: prep_dir
 	cd ${BUILD_HOST_DIR}; bash ${ROOT_DIR}/makes/src/host/wrapper.sh
 
-unify-install:
-ifneq (${WPITARGET},Windows)
-	cd ${BUILD_HOST_DIR}/llvm-install; rsync -a ./$(WPIPREFIX)/ "/usr/"
-	cd ${BUILD_HOST_DIR}/wrapper-install; rsync -a ./$(WPIPREFIX)/ "/usr/"
-endif
+# unify-install:
+# ifneq (${WPITARGET},Windows)
+# 	cd ${BUILD_HOST_DIR}/llvm-install; rsync -a ./$(WPIPREFIX)/ "/usr/"
+# 	cd ${BUILD_HOST_DIR}/wrapper-install; rsync -a ./$(WPIPREFIX)/ "/usr/"
+# endif
