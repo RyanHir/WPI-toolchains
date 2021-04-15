@@ -1,6 +1,5 @@
 #! /usr/bin/env bash
 
-source "$(dirname "$0")/version.env" || exit
 source "${SCRIPT_DIR}/downloads_tools.sh" || exit
 
 # signed asc https://download.ni.com/ni-linux-rt/feeds/2019/arm/cortexa9-vfpv3/Packages

@@ -1,9 +1,9 @@
 #! /usr/bin/env bash
 
-[ -n "${V_GCC+x}" ] || exit
-[ -n "${REPACK_DIR+x}" ] || exit
-[ -n "${DOWNLOAD_DIR+x}" ] || exit
-[ -n "${TARGET_TUPLE+x}" ] || exit
+[ -n "${V_GCC+x}" ] || return
+[ -n "${REPACK_DIR+x}" ] || return
+[ -n "${DOWNLOAD_DIR+x}" ] || return
+[ -n "${TARGET_TUPLE+x}" ] || return
 
 function unpack-generic() {
     function extract() {

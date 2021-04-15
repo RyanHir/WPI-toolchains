@@ -2,11 +2,11 @@
 
 set -e
 
-rm -rf ${BUILD_DIR}/libcxx-install
-mkdir -p ${BUILD_DIR}/libcxx-build
-pushd ${BUILD_DIR}/libcxx-build
+rm -rf ${BUILD_TARGET_DIR}/libcxx-install
+mkdir -p ${BUILD_TARGET_DIR}/libcxx-build
+pushd ${BUILD_TARGET_DIR}/libcxx-build
 
-SYSROOT="$BUILD_DIR/sysroot-install/$TARGET_TUPLE"
+SYSROOT="$BUILD_TARGET_DIR/sysroot-install/$TARGET_TUPLE"
 
 # TODO: Convert into cmake args
 SYSROOT_FLAGS="--sysroot='$SYSROOT' --gcc-toolchain='$SYSROOT'"
@@ -52,30 +52,30 @@ CMAKE_ARGS=(
 )
 
 # Select Compiler
+# TODO: Merge args
 if [ "$WPITARGET" = "Windows" ]; then
     # TODO: Test with Ubuntu 20.04 clang
     CMAKE_ARGS+=(
-        "-DCMAKE_C_COMPILER=$ROOT_DIR/downloads/llvm-mingw/bin/clang"
+        "-DCMAKE_C_COMPILER=$MINGW_DIR/bin/clang"
         "-DCMAKE_C_COMPILER_TARGET=$TARGET_TUPLE"
-        "-DCMAKE_CXX_COMPILER=$ROOT_DIR/downloads/llvm-mingw/bin/clang++"
+        "-DCMAKE_CXX_COMPILER=$MINGW_DIR/bin/clang++"
         "-DCMAKE_CXX_COMPILER_TARGET=$TARGET_TUPLE"
-        "-DCMAKE_AR=$ROOT_DIR/downloads/llvm-mingw/bin/llvm-ar"
+        "-DCMAKE_AR=$MINGW_DIR/bin/llvm-ar"
     )
 else
-    RECENT_CLANG_BUILD_DIR="$ROOT_DIR/build/${WPITARGET}_${WPIHOSTTARGET}/llvm-install/$WPIPREFIX/bin"
+    RECENT_CLANG_BUILD_TARGET_DIR="$BUILD_HOST_DIR/llvm-install/$WPIPREFIX/bin"
     CMAKE_ARGS+=(
-        "-DCMAKE_C_COMPILER=${RECENT_CLANG_BUILD_DIR}/clang"
+        "-DCMAKE_C_COMPILER=${RECENT_CLANG_BUILD_TARGET_DIR}/clang"
         "-DCMAKE_C_COMPILER_TARGET=$TARGET_TUPLE"
-        "-DCMAKE_CXX_COMPILER=${RECENT_CLANG_BUILD_DIR}/clang++"
+        "-DCMAKE_CXX_COMPILER=${RECENT_CLANG_BUILD_TARGET_DIR}/clang++"
         "-DCMAKE_CXX_COMPILER_TARGET=$TARGET_TUPLE"
-        "-DCMAKE_AR=${RECENT_CLANG_BUILD_DIR}/llvm-ar"
+        "-DCMAKE_AR=${RECENT_CLANG_BUILD_TARGET_DIR}/llvm-ar"
     )
 fi
 
 cmake "$ROOT_DIR/downloads/llvm-toolchains/libcxx/" \
     -G Ninja "${CMAKE_ARGS[@]}"
 ninja $NINJA_ARGS
-# DESTDIR="${BUILD_DIR}/libcxx-install" ninja install-cxxabi
-DESTDIR="${BUILD_DIR}/libcxx-install/$TARGET_TUPLE" ninja install
+DESTDIR="${BUILD_TARGET_DIR}/libcxx-install/$TARGET_TUPLE" ninja install
 
 popd

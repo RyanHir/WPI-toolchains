@@ -1,8 +1,10 @@
 #! /usr/bin/env bash
 
 set -e
-source "$(dirname "$0")/version.env" || exit
-source "$SCRIPT_DIR/repack_tools.sh" || exit
+source "$SCRIPT_DIR/repack_tools.sh" || {
+    echo "[ERROR] Could not source repack_tools.sh"
+    false   
+}
 
 REPACK_DIR="$1"
 

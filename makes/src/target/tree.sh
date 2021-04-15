@@ -9,8 +9,8 @@ if [ "$WPITARGET" != "sysroot" ]; then
         echo "$dir/"
         rsync "$dir/" tree-build -a --copy-links
     done
-    rsync "${ROOT_DIR}/build/${WPITARGET}_${WPIHOSTTARGET}/llvm-install/" tree-build -a --copy-links
-    rsync "${ROOT_DIR}/build/${WPITARGET}_${WPIHOSTTARGET}/wrapper-install/" tree-build -a --copy-links
+    rsync "${BUILD_HOST_DIR}/llvm-install/" tree-build -a --copy-links
+    rsync "${BUILD_HOST_DIR}/wrapper-install/" tree-build -a --copy-links
 else
     pushd "sysroot-install"
     # fix-links
@@ -21,7 +21,7 @@ mv "cmake-toolchain.cmake" "tree-build/${WPIPREFIX}"
 pushd tree-build
 du -hs .
 
-WPI_TREE_OUT="frc${V_YEAR}/${TOOLCHAIN_NAME}/"
+WPI_TREE_OUT="frc${V_YEAR}/${TARGET_OS}/"
 
 rm -rf "${WPI_TREE_OUT}"
 mkdir -p "${WPI_TREE_OUT}"

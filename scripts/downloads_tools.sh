@@ -8,7 +8,7 @@ function import-pgp-keys() {
         echo "[INFO] Importing $KEY into gnupg"
         gpg --keyserver keyserver.ubuntu.com --recv-key "$KEY" &> /dev/null
         if [ "$?" != "0" ]; then
-            echo "[ERR] Could not import 0x${KEY} into gpg"
+            echo "[ERROR] Could not import 0x${KEY} into gpg"
             return 1
         fi
     done
@@ -30,7 +30,7 @@ function basic-download() {
     [ -r "$FILE" ] && return
     echo "[INFO] Downloading $FILE"
     if ! wget -nc -nv "$1"; then
-        echo "[ERR] Failed to download $FILE"
+        echo "[ERROR] Failed to download $FILE"
         return 1
     fi
 }
@@ -56,7 +56,7 @@ function package-debian() {
         basic-download "$URL" && return
         echo "[INFO] '$PACKAGE' is not in $repo"
     done
-    echo "[ERR] Cannot find '${FILE}' in any repos"
+    echo "[ERROR] Cannot find '${FILE}' in any repos"
     exit 1
 }
 

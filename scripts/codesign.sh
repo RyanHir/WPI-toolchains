@@ -12,7 +12,7 @@ sign_directory()
 
 set -e
 
-cd "$BUILD_DIR/tree-install/frc${V_YEAR}/${TOOLCHAIN_NAME}/"
+cd "$BUILD_TARGET_DIR/tree-install/frc${V_YEAR}/${TOOLCHAIN_NAME}/"
 sign_directory "./bin"
 sign_directory "./${TARGET_TUPLE}/bin"
 sign_directory "./libexec/gcc/${TARGET_TUPLE}/${V_GCC}"

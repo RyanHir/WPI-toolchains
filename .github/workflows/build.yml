@@ -2,21 +2,13 @@ name: Build All
 
 on:
   push:
-    branches:
-      - "stable"
+  pull_request:
 
 jobs:
   build:
     strategy:
       fail-fast: false
       matrix:
-        target:
-          [
-            { os: roborio, port: armel },
-            { os: raspi32, port: armhf },
-            { os: generic, port: armhf },
-            { os: generic, port: arm64 },
-          ]
         host:
           [
             {
@@ -48,15 +40,9 @@ jobs:
               runner: macos-latest,
               docker: false,
               docker-img: "",
-            },
-            {
-              os-cfg: sysroot,
-              runner: ubuntu-latest,
-              docker: true,
-              docker-img: alpine,
-            },
+            }
           ]
-    name: Build ${{ matrix.target.os }}-${{ matrix.target.port }} for ${{ matrix.host.os-cfg }}
+    name: Build ${{ matrix.host.os-cfg }}
     runs-on: ${{ matrix.host.runner }}
     steps:
       - uses: actions/checkout@v2
@@ -72,37 +58,13 @@ jobs:
         if: github.repository_owner == 'wpilibsuite' && startsWith(matrix.host.runner, 'macos')
       - name: Build on docker
         if: ${{ matrix.host.docker }}
-        run: ./build-docker.sh ${{matrix.host.docker-img}} hosts/${{matrix.host.os-cfg}}.env targets/${{matrix.target.os}} ${{matrix.target.port}}
+        run: ./build-docker.sh ${{matrix.host.docker-img}} hosts/${{matrix.host.os-cfg}}.env
       - name: Build on native
         if: startsWith(matrix.host.runner, 'macos')
-        run: ./build.sh hosts/${{matrix.host.os-cfg}}.env targets/${{matrix.target.os}} ${{matrix.target.port}}
+        run: ./build.sh hosts/${{matrix.host.os-cfg}}.env
         env:
           APPLE_DEVELOPER_ID: ${{ secrets.APPLE_DEVELOPER_ID }}
       - uses: actions/upload-artifact@v2
         with:
-          name: ${{matrix.target.os}}-${{matrix.target.port}}-${{matrix.host.os-cfg}}
-          path: build/${{matrix.target.os}}-${{matrix.target.port}}/*/${{matrix.target.port}}-${{matrix.target.os}}-*-*-Toolchain-*.*
-  test-sysroot:
-    needs: build
-    strategy:
-      fail-fast: true
-      matrix:
-        target:
-          [
-            { os: roborio, port: armel },
-            { os: raspi32, port: armhf },
-            { os: generic, port: armhf },
-            { os: generic, port: arm64 },
-          ]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2
-        with:
-          name: ${{matrix.target.os}}-${{matrix.target.port}}-linux_x86_64
-      - name: Fix directory
-        run: mv Linux/* .
-      - name: Print directory for logging
-        run: ls -lah
-      - name: Run test
-        run: ./test.sh hosts/linux_x86_64.env targets/${{matrix.target.os}} ${{matrix.target.port}}
+          name: ${{matrix.host.os-cfg}}
+          path: build/*/*/*-Toolchain-*.*

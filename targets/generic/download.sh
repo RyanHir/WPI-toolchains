@@ -1,6 +1,5 @@
 #! /usr/bin/env bash
 
-source "$(dirname "$0")/version.env" || exit
 source "${SCRIPT_DIR}/downloads_tools.sh" || exit
 
 package-debian g/gcc-8/libgcc1_${Va_LIBGCC}_${TARGET_PORT}.deb
