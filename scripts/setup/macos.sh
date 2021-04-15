@@ -18,4 +18,8 @@ LIPO="lipo"
 OBJDUMP="objdump"
 
 ls -l "$OSX_SDK_PATH"
-[ -d "$OSX_SDK_PATH/MacOSX${WPI_HOST_SDK_CUR}.sdk" ] || exit
+[ -d "$OSX_SDK_PATH/MacOSX.sdk" ] || {
+    echo "[ERROR] Could not find SDK(s) in $OSX_SDK_PATH"
+    exit 1
+}
+OSX_SDK_PATH+="MacOSX.sdk"
