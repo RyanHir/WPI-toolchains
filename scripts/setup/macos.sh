@@ -6,7 +6,7 @@ PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
 export PATH
 
-SDK_PATH="/Library/Developer/CommandLineTools/SDKs"
+OSX_SDK_PATH="/Library/Developer/CommandLineTools/SDKs"
 
 CC="cc"
 CXX="c++"
@@ -17,8 +17,5 @@ RANLIB="ranlib"
 LIPO="lipo"
 OBJDUMP="objdump"
 
-ls -l "$SDK_PATH"
-[ -d "$SDK_PATH/MacOSX${WPI_HOST_SDK_CUR}.sdk" ] || exit
-
-unset SDK_PATH
-
+ls -l "$OSX_SDK_PATH"
+[ -d "$OSX_SDK_PATH/MacOSX${WPI_HOST_SDK_CUR}.sdk" ] || exit

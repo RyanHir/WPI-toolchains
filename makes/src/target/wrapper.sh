@@ -22,6 +22,7 @@ elif [ "$WPITARGET" = "Mac" ]; then
     CMAKE_ARGS+=(
         "-DCMAKE_OSX_ARCHITECTURES=${WPI_HOST_SDK_TARGET}"
         "-DCMAKE_OSX_DEPLOYMENT_TARGET=${WPI_HOST_SDK_MIN}"
+        "-DCMAKE_OSX_SYSROOT=${OSX_SDK_PATH}"
     )
 fi
 
