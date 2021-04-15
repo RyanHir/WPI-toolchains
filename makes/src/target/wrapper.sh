@@ -2,8 +2,8 @@
 
 set -e
 
-rm -rf "${BUILD_HOST_DIR}/wrapper-"{build,install}
-mkdir -p "${BUILD_HOST_DIR}/wrapper-build/"
+rm -rf "${BUILD_TARGET_DIR}/wrapper-install"
+mkdir -p "${BUILD_TARGET_DIR}/wrapper-build"
 
 CMAKE_ARGS=(
     "-DCMAKE_BUILD_TYPE=MinSizeRel"
@@ -25,9 +25,9 @@ elif [ "$WPITARGET" = "Mac" ]; then
     )
 fi
 
-pushd "${BUILD_HOST_DIR}/wrapper-build/"
+pushd "${BUILD_TARGET_DIR}/wrapper-build/"
 cmake "${ROOT_DIR}/res/wrapper/" \
     -GNinja "${CMAKE_ARGS[@]}"
 ninja $NINJA_ARGS
-DESTDIR="${BUILD_HOST_DIR}/wrapper-install/" ninja install
+DESTDIR="${BUILD_TARGET_DIR}/wrapper-install/" ninja install
 popd

@@ -5,11 +5,12 @@ TARGET_DIR=${ROOT_DIR}/targets/${TARGET_OS}
 include ${TARGET_DIR}/version.env
 include ${TARGET_DIR}/info.${TARGET_PORT}.env
 export
-.PHONY: all prep sysroot libcxx cmake-toolchain
-all: libcxx cmake-toolchain pkg
+.PHONY: all prep sysroot libcxx cmake-toolchain wrapper prep
+all: libcxx cmake-toolchain wrapper pkg
 
 prep:
 	mkdir -p ${DOWNLOAD_DIR}
+	mkdir -p ${BUILD_TARGET_DIR}
 	cd ${DOWNLOAD_DIR}; bash ${TARGET_DIR}/download.sh
 	cd ${DOWNLOAD_DIR}; bash ${TARGET_DIR}/repack.sh ${REPACK_DIR}
 
@@ -25,6 +26,9 @@ libcxx: sysroot
 
 cmake-toolchain:
 	cd ${BUILD_TARGET_DIR}; bash ${ROOT_DIR}/makes/src/target/cmake-toolchain.sh
+
+wrapper:
+	cd ${BUILD_TARGET_DIR}; bash ${ROOT_DIR}/makes/src/target/wrapper.sh
 
 tree:
 	cd ${BUILD_TARGET_DIR}; bash ${ROOT_DIR}/makes/src/target/tree.sh

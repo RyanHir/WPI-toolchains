@@ -9,13 +9,12 @@ pushd ${BUILD_TARGET_DIR}/libcxx-build
 SYSROOT="$BUILD_TARGET_DIR/sysroot-install/$TARGET_TUPLE"
 
 # TODO: Convert into cmake args
-SYSROOT_FLAGS="--sysroot='$SYSROOT' --gcc-toolchain='$SYSROOT'"
 SYSROOT_LIB_FLAGS="-B$SYSROOT/usr/lib/$TARGET_TUPLE/$V_GCC -B$SYSROOT/usr/lib/gcc/$TARGET_TUPLE/$V_GCC"
 TARGET_FLAGS=""
 [ -n "$TARGET_CPU" ] && TARGET_FLAGS+=" -mcpu=${TARGET_CPU}" || true
 [ -n "$TARGET_FPU" ] && TARGET_FLAGS+=" -mfpu=${TARGET_FPU}" || true
 [ -n "$TARGET_FLOAT" ] && TARGET_FLAGS+=" -mfloat-abi=${TARGET_FLOAT}" || true
-CXX_FLAGS="$SYSROOT_FLAGS $TARGET_FLAGS $SYSROOT_LIB_FLAGS"
+CXX_FLAGS="$TARGET_FLAGS $SYSROOT_LIB_FLAGS"
 LINK_FLAGS="-fuse-ld=lld -L$SYSROOT/usr/lib/$TARGET_TUPLE/$V_GCC -L$SYSROOT/usr/lib/gcc/$TARGET_TUPLE/$V_GCC"
 CMAKE_ARGS=(
     "-DCMAKE_BUILD_TYPE=MinSizeRel"

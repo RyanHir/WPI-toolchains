@@ -5,12 +5,11 @@ source "$ROOT_DIR/scripts/repack_tools.sh" || exit
 rm -rf tree-{build,install}
 mkdir tree-{build,install}
 if [ "$WPITARGET" != "sysroot" ]; then
-    for dir in {sysroot,libcxx}-install; do
+    for dir in {sysroot,libcxx,wrapper}-install; do
         echo "$dir/"
         rsync "$dir/" tree-build -a --copy-links
     done
     rsync "${BUILD_HOST_DIR}/llvm-install/" tree-build -a --copy-links
-    rsync "${BUILD_HOST_DIR}/wrapper-install/" tree-build -a --copy-links
 else
     pushd "sysroot-install"
     # fix-links
