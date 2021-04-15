@@ -5,6 +5,7 @@ source "$SCRIPT_DIR/downloads_tools.sh"
 LLMV_REPO="https://github.com/llvm/llvm-project/releases/download/llvmorg-${V_LLVM}"
 LLVM_MINGW_BUILDS="https://github.com/mstorsjo/llvm-mingw/releases/download/20201020"
 
+mkdir -p "${ROOT_DIR}/downloads"
 pushd "$ROOT_DIR/downloads"
 rm -rf llvm-toolchains
 echo "[INFO]: Downloading and Extracting llvm-project"
