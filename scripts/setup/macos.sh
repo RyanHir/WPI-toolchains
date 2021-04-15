@@ -25,5 +25,5 @@ ls -l "$OSX_SDK_PATH"
     echo "[ERROR] Could not find SDK(s) in $OSX_SDK_PATH"
     exit 1
 }
-OSX_SDK_PATH+="MacOSX.sdk"
+OSX_SDK_PATH+="/MacOSX.sdk"
 unset CMD_LINE_TOOLS
