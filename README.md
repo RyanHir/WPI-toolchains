@@ -7,11 +7,14 @@
 ## Supported Hosts
 | Architecture | OS | Minimum Release |
 | - | - | - |
-| x86_64 | Linux | glibc 2.23 and Linux 4.4 |
+| x86_64 | Linux | Ubuntu 16.04* |
 | x86_64 | Windows | Windows 7 |
 | i686 | Windows | Windows 7 |
 | arm64 | Windows | Windows 10 |
 | Universal | macOS | macOS 10.9 |
+
+*: You can use other distros with glibc 2.23 >=
+and Linux 4.4 >=
 
 ## Supported Targets
 
