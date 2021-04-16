@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <stdexcept>
 
-std::vector<std::string> genSysrootArgs(const std::string& target, const std::string& exe)
+std::vector<std::string> genSysrootArgs(const std::string &target, const std::string &exe)
 {
     std::vector<std::string> args;
     std::string sysroot_dir = getSysrootDir(target);
@@ -16,6 +16,10 @@ std::vector<std::string> genSysrootArgs(const std::string& target, const std::st
     args.push_back("-B" + libgcc_a_dir);
     args.push_back("-L" + libgcc_b_dir);
     args.push_back("-B" + libgcc_b_dir);
-    args.push_back("-I" + getCXXIncludeDir(target));
+    if (exe.find("++") != std::string::npos)
+    {
+        args.push_back("-I" + getCXXIncludeDir(target));
+        args.push_back("--stdlib=libc++");
+    }
     return args;
 }
