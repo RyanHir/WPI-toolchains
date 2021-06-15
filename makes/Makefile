@@ -9,12 +9,12 @@ prefix-install:
 
 sysroot: cmake-toolchain
 	cd ${BUILD_DIR}; rm -rf sysroot-*
-	cd ${BUILD_DIR}/; tar xf ${DOWNLOAD_DIR}/sysroot-libc-linux.tar.bz2
+	cd ${BUILD_DIR}/; tar xf ${DOWNLOAD_DIR}/sysroot-libc-linux.tar
 	cd ${BUILD_DIR}/; mkdir -p sysroot-install/
-	cd ${BUILD_DIR}/; mv sysroot-libc-linux/ sysroot-install/$(TARGET_TUPLE)
+	cd ${BUILD_DIR}/; mv sysroot-libc-linux/ sysroot-install/$(TARGET_PREFIX)
 
 sysroot-install: prefix-install sysroot
-	cd ${BUILD_DIR}; sudo cp -r ${BUILD_DIR}/sysroot-install/$(TARGET_TUPLE)/ /$(WPIPREFIX)/
+	cd ${BUILD_DIR}; sudo cp -r ${BUILD_DIR}/sysroot-install/$(TARGET_PREFIX)/ /$(WPIPREFIX)/
 
 utils:
 	cd ${BUILD_DIR}; bash ${ROOT_DIR}/makes/src/utils.sh
