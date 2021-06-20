@@ -4,25 +4,24 @@
 [ -n "${REPACK_DIR+x}" ] || exit
 [ -n "${DOWNLOAD_DIR+x}" ] || exit
 [ -n "${TARGET_TUPLE+x}" ] || exit
+[ -n "${TARGET_PREFIX+x}" ] || exit
 
 # TODO: Convert to python in librepack
 function fix-links() {
     pushd "${DOWNLOAD_DIR}/sysroot-libc-linux/"
     for symlink in $(find ./ -name "*.*" -type l); do
-        source="$(readlink $symlink)"
+        source="$(readlink $symlink | sed "s/${TARGET_TUPLE}/${TARGET_PREFIX}/g")"
         echo "$symlink -> $source"
         pushd "$(dirname "$symlink")" >/dev/null
         f_name="$(basename "$symlink")"
         if [ -e "$source" ]; then
-            # 18.04 and newer
             rm "$f_name"
             cp "$source" "$f_name"
-        elif [ -e "$REPACK_DIR/$source" ]; then
-            # 16.04 and newer
+        elif [ -e "$DOWNLOAD_DIR/sysroot-libc-linux/$source" ]; then
             rm "$f_name"
-            cp "$REPACK_DIR/$source" "$f_name"
+            cp "$DOWNLOAD_DIR/sysroot-libc-linux/$source" "$f_name"
         else
-            echo "$PWD/$source: not valid link, potentially missing dep."
+            echo "$source: not valid link, potentially missing dep."
             exit 1
         fi
         popd >/dev/null

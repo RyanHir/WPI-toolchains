@@ -87,27 +87,36 @@ def sysroot_clean(workdir: Path):
 
 
 def header_fix(workdir: Path, release, target_tuple):
-    assert type(release) is str
-    major = release.split(".")[0]
-    with change_dir(workdir / "usr/lib/gcc/{}".format(target_tuple)):
-        try:
-            Path(str(major)).rename(release)
-        except:
-            pass
-    with change_dir(workdir / "usr/include/c++"):
-        try:
-            Path(str(major)).rename(release)
-        except:
-            pass
+    def _rename(path: Path):
+        assert type(release) is str
+        if not path.exists():
+            return
+        major = release.split(".")[0]
+        with change_dir(path):
+            pwd = Path(major)
+            if pwd.exists():
+                pwd.rename(release)
+        pass
+    _rename(workdir / "usr/lib/gcc/" / target_tuple)
+    _rename(workdir / "usr/include/c++" / target_tuple)
+    _rename(workdir / "usr/include/c++")
+    _rename(workdir / "usr/include/" / target_tuple / "c++")
 
 
 def tuple_rename(workdir: Path, release, sysroot_tuple, target_tuple):
-    with change_dir(workdir / "usr/include/c++" / release):
-        Path(sysroot_tuple).rename(target_tuple)
-    with change_dir(workdir / "usr/lib/gcc"):
-        Path(sysroot_tuple).rename(target_tuple)
-    with change_dir(workdir / "usr/lib"):
-        Path(sysroot_tuple).rename(target_tuple)
+    def _rename(path: Path):
+        if not path.exists():
+            return
+        with change_dir(path):
+            pwd = Path(sysroot_tuple)
+            if pwd.exists():
+                pwd.rename(target_tuple)
+        pass
+    _rename(workdir / "usr/include/c++" / release)
+    _rename(workdir / "usr/include/")
+    _rename(workdir / "usr/lib/gcc")
+    _rename(workdir / "usr/lib")
+    _rename(workdir / "lib")
 
 
 def sysroot_package(workdir: Path, downloaddir: Path):
