@@ -5,7 +5,6 @@ cd "$(dirname "$0")" || exit
 
 ROOT_DIR="${PWD}" && export ROOT_DIR
 TEST_SYS_GCC=false && export TEST_SYS_GCC
-# shellcheck source=./scripts/setup.sh
 source "$ROOT_DIR/scripts/setup.sh"
 
 MAKE="make -C ${ROOT_DIR}/makes/ M=${BUILD_DIR}"
@@ -22,28 +21,34 @@ pushd toolchain
 tar xf "$ROOT_DIR/$ARCHIVE_NAME"
 cd "${TOOLCHAIN_NAME}"
 cat << EOF > hello.c
+#include <stdio.h>
 int main() {
+    printf("Hello World\n");
     return 0;
 }
 EOF
-./bin/${TARGET_PREFIX}gcc hello.c -o a.out || exit
-file a.out
-./bin/${TARGET_PREFIX}g++ hello.c -o a.out || exit
-file a.out
-
+cat << EOF > hello.cpp
+#include <iostream>
+int main() {
+    std::cout << "Hello World\n";
+    return 0;
+}
+EOF
 mkdir build/
 # Tests to see if cmake-toolchain.cmake works
 cat << EOF > CMakeLists.txt
 cmake_minimum_required(VERSION 3.1)
-project(example)
-add_executable(hello hello.c)
+project(example C CXX)
+add_executable(test_c hello.c)
+add_executable(test_cpp hello.cpp)
 EOF
 
 pushd build/
 # Test CMake with Unix Makefiles
 cmake -DCMAKE_TOOLCHAIN_FILE=../cmake-toolchain.cmake ..
 make
-file hello
+file test_c
+file test_cpp
 popd
 
 popd
