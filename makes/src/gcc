@@ -27,6 +27,11 @@ if ls -l "${PATCH_DIR}/" | grep -q "gcc-${V_GCC//.*/}"; then
         patch -p1 -N -s <"$file"
     done
 fi
+if ls -l "${PATCH_DIR}/" | grep -q "gcc-all"; then
+    for file in "${PATCH_DIR}"/gcc-all_*.patch; do
+        patch -p1 -N -s <"$file"
+    done
+fi
 popd
 
 BUILD_TUPLE="$(gcc -dumpmachine)" # Builder
@@ -85,11 +90,6 @@ pushd ${BUILD_DIR}/gcc-build
     --disable-libmudflap \
     $([ "$WPITARGET" != "Windows" ] && echo --with-system-zlib) ||
     exit
-if [ "$BACKPORT_LIBSTDCXX" != "true" ]; then
-    make -j"$JOBS" all-gcc all-target-libgfortran || exit
-    DESTDIR=${BUILD_DIR}/gcc-install make install-strip-gcc || exit
-else
-    make -j"$JOBS" || exit
-    DESTDIR=${BUILD_DIR}/gcc-install make install
-fi
+make -j"$JOBS" || exit
+DESTDIR=${BUILD_DIR}/gcc-install make install
 popd
